@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rana Cab Service - Safe School Rides</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;scroll-behavior:smooth}
+:root{--gold:#f5c842;--gold2:#e8a020;--dark:#0a0805;--dark2:#120f08;--card:#1a1610;--border:#2a2218;--text:#f0ead8;--muted:#8a7d60}
+body{background:var(--dark);color:var(--text);font-family:'Outfit',sans-serif;overflow-x:hidden}
+nav{position:fixed;top:0;left:0;right:0;z-index:999;padding:16px 48px;display:flex;align-items:center;justify-content:space-between;background:rgba(10,8,5,0.95);backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
+.nav-logo{display:flex;align-items:center;gap:10px}
+.nav-logo-icon{width:38px;height:38px;background:var(--gold);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:20px}
+.nav-brand{font-family:'Playfair Display',serif;font-size:18px;font-weight:800;color:var(--gold)}
+.nav-brand span{color:var(--text);font-weight:400;font-size:11px;display:block;font-family:'Outfit',sans-serif;letter-spacing:2px;text-transform:uppercase}
+.nav-links{display:flex;gap:28px;list-style:none}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:13px;font-weight:500;transition:color .2s}
+.nav-links a:hover{color:var(--gold)}
+.nav-cta{background:var(--gold);color:var(--dark);padding:9px 22px;border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;border:none;cursor:pointer;transition:all .2s}
+.nav-cta:hover{background:var(--gold2);transform:translateY(-1px)}
+.hero{min-height:100vh;display:flex;align-items:center;padding:120px 48px 80px;position:relative;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 70% 50%,rgba(245,200,66,.08),transparent 60%),radial-gradient(ellipse at 20% 80%,rgba(232,160,32,.05),transparent 50%);z-index:0}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(245,200,66,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(245,200,66,.03) 1px,transparent 1px);background-size:60px 60px;z-index:0}
+.hero-content{position:relative;z-index:1;max-width:600px}
+.hero-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(245,200,66,.1);border:1px solid rgba(245,200,66,.2);border-radius:999px;padding:6px 16px;font-size:12px;font-weight:600;color:var(--gold);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:24px}
+.hero-tag::before{content:'';width:6px;height:6px;background:var(--gold);border-radius:50%;animation:blink 1.5s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(40px,5.5vw,68px);font-weight:900;line-height:1.05;margin-bottom:20px}
+.hero h1 .gold{color:var(--gold)}
+.hero p{font-size:15px;color:var(--muted);line-height:1.7;margin-bottom:36px;max-width:480px}
+.hero-btns{display:flex;gap:14px;flex-wrap:wrap}
+.btn-primary{background:var(--gold);color:var(--dark);padding:14px 28px;border-radius:10px;font-weight:700;font-size:14px;text-decoration:none;transition:all .25s;display:inline-flex;align-items:center;gap:8px;border:none;cursor:pointer}
+.btn-primary:hover{background:var(--gold2);transform:translateY(-2px);box-shadow:0 8px 24px rgba(245,200,66,.25)}
+.btn-outline{border:1px solid var(--border);color:var(--text);padding:14px 28px;border-radius:10px;font-weight:500;font-size:14px;text-decoration:none;transition:all .25s;display:inline-flex;align-items:center;gap:8px}
+.btn-outline:hover{border-color:var(--gold);color:var(--gold)}
+.hero-right{position:absolute;right:80px;top:50%;transform:translateY(-50%);z-index:1}
+.hero-car-box{width:320px;height:320px;border-radius:50%;background:radial-gradient(circle,rgba(245,200,66,.12),transparent 70%);display:flex;align-items:center;justify-content:center;font-size:150px;animation:float 4s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-16px)}}
+.hero-stats{display:flex;gap:40px;margin-top:48px}
+.stat{border-left:2px solid var(--gold);padding-left:16px}
+.stat-num{font-family:'Playfair Display',serif;font-size:26px;font-weight:800;color:var(--gold)}
+.stat-label{font-size:11px;color:var(--muted);margin-top:2px;letter-spacing:.5px}
+section{padding:72px 48px}
+.section-tag{font-size:11px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
+.section-title{font-family:'Playfair Display',serif;font-size:clamp(26px,3.5vw,40px);font-weight:800;margin-bottom:16px;line-height:1.1}
+.section-sub{color:var(--muted);font-size:14px;line-height:1.7;max-width:520px}
+.divider{width:48px;height:3px;background:var(--gold);border-radius:99px;margin:16px 0}
+.services{background:var(--dark2)}
+.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;margin-top:40px}
+.service-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:26px;transition:all .3s;position:relative;overflow:hidden}
+.service-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:0;transition:opacity .3s}
+.service-card:hover{border-color:rgba(245,200,66,.3);transform:translateY(-4px);box-shadow:0 16px 40px rgba(0,0,0,.4)}
+.service-card:hover::before{opacity:1}
+.service-icon{font-size:32px;margin-bottom:14px}
+.service-card h3{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;margin-bottom:8px}
+.service-card p{font-size:12.5px;color:var(--muted);line-height:1.6}
+.service-badge{display:inline-block;margin-top:12px;font-size:10px;font-weight:600;color:var(--gold);letter-spacing:1px;text-transform:uppercase}
+.why-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;margin-top:40px}
+.why-list{display:flex;flex-direction:column;gap:18px}
+.why-item{display:flex;gap:14px;align-items:flex-start}
+.why-icon{width:42px;height:42px;background:rgba(245,200,66,.1);border:1px solid rgba(245,200,66,.2);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.why-item h4{font-weight:600;font-size:14px;margin-bottom:3px}
+.why-item p{font-size:12.5px;color:var(--muted);line-height:1.6}
+.why-image{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:40px;text-align:center;font-size:90px;line-height:1}
+.why-image .caption{font-size:13px;color:var(--muted);margin-top:18px;font-style:italic}
+.fleet{background:var(--dark2)}
+.fleet-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;margin-top:40px}
+.fleet-card{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;transition:all .3s}
+.fleet-card:hover{transform:translateY(-4px);border-color:rgba(245,200,66,.3)}
+.fleet-img{background:linear-gradient(135deg,#1a1610,#0f0c08);padding:36px 20px;text-align:center;font-size:68px;border-bottom:1px solid var(--border)}
+.fleet-info{padding:18px}
+.fleet-name{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;margin-bottom:6px}
+.fleet-desc{font-size:12px;color:var(--muted);margin-bottom:12px;line-height:1.5}
+.fleet-tags{display:flex;gap:6px;flex-wrap:wrap}
+.fleet-tag{font-size:10px;background:rgba(245,200,66,.08);border:1px solid rgba(245,200,66,.15);color:var(--gold);padding:3px 9px;border-radius:999px;font-weight:600}
+.routes-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px;margin-top:40px}
+.route-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px;display:flex;align-items:center;gap:12px;transition:all .2s}
+.route-card:hover{border-color:rgba(245,200,66,.3);background:rgba(245,200,66,.04)}
+.route-dot{width:9px;height:9px;background:var(--gold);border-radius:50%;flex-shrink:0}
+.route-name{font-weight:600;font-size:13px}
+.route-time{font-size:11px;color:var(--muted);margin-top:2px}
+.testimonials{background:var(--dark2)}
+.test-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;margin-top:40px}
+.test-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:26px}
+.test-quote{font-size:28px;color:var(--gold);line-height:1;margin-bottom:10px;font-family:'Playfair Display',serif}
+.test-text{font-size:13.5px;color:var(--muted);line-height:1.7;margin-bottom:18px;font-style:italic}
+.test-author{display:flex;align-items:center;gap:12px}
+.test-avatar{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold2));display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px;color:var(--dark)}
+.test-name{font-weight:600;font-size:13px}
+.test-role{font-size:11px;color:var(--muted)}
+.stars{color:var(--gold);font-size:13px;margin-bottom:10px}
+.payment-section{background:var(--dark)}
+.payment-inner{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:40px}
+.pay-card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:36px;text-align:center;transition:all .3s}
+.pay-card:hover{border-color:rgba(245,200,66,.3);transform:translateY(-3px)}
+.pay-icon{font-size:48px;margin-bottom:14px}
+.pay-title{font-family:'Playfair Display',serif;font-size:20px;font-weight:800;margin-bottom:8px}
+.pay-num{font-size:22px;font-weight:700;color:var(--gold);letter-spacing:2px;margin:12px 0}
+.pay-note{font-size:12px;color:var(--muted)}
+.contact-section{background:var(--dark2)}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;margin-top:40px;align-items:start}
+.contact-info{display:flex;flex-direction:column;gap:22px}
+.contact-item{display:flex;gap:14px;align-items:flex-start}
+.contact-icon{width:42px;height:42px;background:rgba(245,200,66,.1);border:1px solid rgba(245,200,66,.2);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.contact-item h4{font-weight:600;font-size:14px;margin-bottom:3px}
+.contact-item p{font-size:13px;color:var(--muted);line-height:1.6}
+.contact-item a{color:var(--gold);text-decoration:none}
+.book-cta-box{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:36px;text-align:center}
+.book-cta-box h3{font-family:'Playfair Display',serif;font-size:22px;font-weight:800;margin-bottom:10px}
+.book-cta-box p{font-size:13px;color:var(--muted);margin-bottom:24px;line-height:1.6}
+footer{background:#070503;border-top:1px solid var(--border);padding:36px 48px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
+.footer-brand{font-family:'Playfair Display',serif;font-size:15px;font-weight:800;color:var(--gold)}
+.footer-links{display:flex;gap:22px}
+.footer-links a{font-size:12px;color:var(--muted);text-decoration:none;transition:color .2s}
+.footer-links a:hover{color:var(--gold)}
+.footer-copy{font-size:12px;color:var(--muted)}
+
+/* DIALOG */
+.dialog-overlay{position:fixed;inset:0;background:rgba(0,0,0,.78);z-index:9999;display:none;align-items:center;justify-content:center;backdrop-filter:blur(6px)}
+.dialog-overlay.open{display:flex;animation:fadeIn .25s ease}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.dialog-box{background:#15120c;border:1px solid rgba(245,200,66,.25);border-radius:24px;width:90%;max-width:540px;padding:40px;position:relative;animation:slideUp .3s ease;max-height:90vh;overflow-y:auto}
+@keyframes slideUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+.dialog-close{position:absolute;top:16px;right:20px;background:none;border:none;color:var(--muted);font-size:22px;cursor:pointer;transition:color .2s}
+.dialog-close:hover{color:var(--gold)}
+.dialog-tag{font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.dialog-title{font-family:'Playfair Display',serif;font-size:24px;font-weight:800;line-height:1.2;margin-bottom:6px}
+.dialog-sub{font-size:13px;color:var(--muted);margin-bottom:24px}
+.dialog-form{display:flex;flex-direction:column;gap:14px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.dialog-form label{font-size:11px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;color:var(--muted);margin-bottom:5px;display:block}
+.dialog-form input,.dialog-form select{width:100%;background:#0f0c08;border:1px solid var(--border);border-radius:10px;padding:11px 14px;color:var(--text);font-family:'Outfit',sans-serif;font-size:13px;outline:none;transition:border .2s}
+.dialog-form input:focus,.dialog-form select:focus{border-color:rgba(245,200,66,.5);box-shadow:0 0 0 3px rgba(245,200,66,.06)}
+.dialog-form select option{background:#0f0c08}
+.dialog-submit{background:var(--gold);color:var(--dark);border:none;padding:14px 24px;border-radius:10px;font-weight:700;font-size:14px;cursor:pointer;transition:all .2s;width:100%;margin-top:6px;font-family:'Outfit',sans-serif}
+.dialog-submit:hover{background:var(--gold2);transform:translateY(-1px)}
+.dialog-submit:disabled{opacity:.6;cursor:not-allowed;transform:none}
+.success-box{display:none;text-align:center;padding:20px 0}
+.success-box .s-icon{font-size:56px;margin-bottom:16px}
+.success-box h3{font-family:'Playfair Display',serif;font-size:22px;font-weight:800;color:var(--gold);margin-bottom:8px}
+.success-box p{font-size:13px;color:var(--muted);line-height:1.8}
+.fade-up{opacity:0;transform:translateY(22px);transition:opacity .6s ease,transform .6s ease}
+.fade-up.visible{opacity:1;transform:translateY(0)}
+@media(max-width:768px){
+  nav{padding:14px 20px}.nav-links{display:none}
+  .hero{padding:100px 20px 60px}.hero-right{display:none}
+  section{padding:56px 20px}
+  .why-grid,.contact-grid,.payment-inner{grid-template-columns:1fr}
+  footer{padding:28px 20px;flex-direction:column;text-align:center}
+  .form-row{grid-template-columns:1fr}
+  .dialog-box{padding:28px 20px}
+}
+</style>
+</head>
+<body>
+
+<!-- DIALOG -->
+<div class="dialog-overlay" id="dialogOverlay">
+  <div class="dialog-box">
+    <button class="dialog-close" onclick="closeDialog()">✕</button>
+    <div id="dialogForm">
+      <div class="dialog-tag">🚕 Book a Ride</div>
+      <div class="dialog-title">Book Your School Cab</div>
+      <div class="dialog-sub">Fill in the details — we'll call you back shortly!</div>
+      <div class="dialog-form">
+        <div class="form-row">
+          <div><label>Child's Name *</label><input type="text" id="childName" name="child_name" placeholder="e.g. Arjun Rana"></div>
+          <div><label>Class *</label><input type="text" id="childClass" name="child_class" placeholder="e.g. Class 8"></div>
+        </div>
+        <div class="form-row">
+          <div><label>Father's Name *</label><input type="text" id="fatherName" name="father_name" placeholder="e.g. Ramesh Rana"></div>
+          <div><label>Mother's Name *</label><input type="text" id="motherName" name="mother_name" placeholder="e.g. Sunita Rana"></div>
+        </div>
+        <div><label>School Name *</label><input type="text" id="schoolName" name="school_name" placeholder="e.g. Delhi Public School"></div>
+        <div><label>Class Teacher's Name *</label><input type="text" id="teacherName" name="teacher_name" placeholder="e.g. Mrs. Sharma"></div>
+        <div><label>Mobile Number *</label><input type="tel" id="mobileNum" name="mobile" placeholder="+91 XXXXX XXXXX"></div>
+        <div><label>Pickup Address *</label><input type="text" id="pickupAddr" name="pickup_address" placeholder="Your home address"></div>
+        <div>
+          <label>Vehicle Type *</label>
+          <select id="vehicleType" name="vehicle_type">
+            <option value="" disabled selected>Select vehicle</option>
+            <option>Sedan (4 Seater)</option>
+            <option>SUV (6 Seater)</option>
+            <option>Mini Van (12 Seater)</option>
+          </select>
+        </div>
+        <button class="dialog-submit" id="submitBtn" onclick="submitBooking()">Confirm Booking 🚕</button>
+      </div>
+    </div>
+    <div class="success-box" id="successBox">
+      <div class="s-icon">🎉</div>
+      <h3>Booking Received!</h3>
+      <p>Thank you! Your booking has been sent to us.<br>We'll call you on <strong style="color:var(--gold)" id="confirmMobile"></strong> shortly.<br><br>For urgent queries:<br><strong style="color:var(--gold)">📞 9810578637 / 9910608637</strong></p>
+    </div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <div class="nav-logo-icon">🚕</div>
+    <div class="nav-brand">Rana Cab Service<span>Safe · Reliable · On Time</span></div>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#fleet">Fleet</a></li>
+    <li><a href="#routes">Routes</a></li>
+    <li><a href="#payment">Payment</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <button class="nav-cta" onclick="openDialog()">Book Now</button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div><div class="hero-grid"></div>
+  <div class="hero-content fade-up">
+    <div class="hero-tag">🟡 Now Serving 15+ Schools</div>
+    <h1>Your Child's Safety<br>is Our <span class="gold">Priority</span></h1>
+    <p>Rana Cab Service provides safe, punctual, and comfortable school cab services. Trusted by hundreds of families across Faridabad since 2010.</p>
+    <div class="hero-btns">
+      <button class="btn-primary" onclick="openDialog()">📞 Book a Cab</button>
+      <a href="#services" class="btn-outline">Our Services →</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-num">500+</div><div class="stat-label">Happy Families</div></div>
+      <div class="stat"><div class="stat-num">15+</div><div class="stat-label">Schools Covered</div></div>
+      <div class="stat"><div class="stat-num">14 Yrs</div><div class="stat-label">Experience</div></div>
+    </div>
+  </div>
+  <div class="hero-right"><div class="hero-car-box">🚕</div></div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="fade-up"><div class="section-tag">What We Offer</div><div class="section-title">Our Services</div><div class="divider"></div><div class="section-sub">From daily school pickups to special trips — every ride covered.</div></div>
+  <div class="services-grid">
+    <div class="service-card fade-up"><div class="service-icon">🏫</div><h3>Daily School Pickup</h3><p>Door-to-door pickup and drop every school day. On time, every time.</p><div class="service-badge">Most Popular ✦</div></div>
+    <div class="service-card fade-up"><div class="service-icon">🌙</div><h3>After School Drop</h3><p>Safe return home after school, tuitions, or extra activities. GPS tracked.</p><div class="service-badge">Available Daily ✦</div></div>
+    <div class="service-card fade-up"><div class="service-icon">🏕️</div><h3>School Trips & Events</h3><p>Special vehicles for excursions, sports days, and cultural events.</p><div class="service-badge">Book in Advance ✦</div></div>
+    <div class="service-card fade-up"><div class="service-icon">🔒</div><h3>Safety First</h3><p>All drivers verified & trained. Female attendant on request. Live tracking.</p><div class="service-badge">100% Safe ✦</div></div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section id="why">
+  <div class="fade-up"><div class="section-tag">Why Choose Us</div><div class="section-title">Parents Trust Us</div><div class="divider"></div></div>
+  <div class="why-grid fade-up">
+    <div class="why-list">
+      <div class="why-item"><div class="why-icon">⏱️</div><div><h4>Always Punctual</h4><p>Our drivers are trained to be on time, every single day.</p></div></div>
+      <div class="why-item"><div class="why-icon">📍</div><div><h4>Live GPS Tracking</h4><p>Know exactly where your child is at all times.</p></div></div>
+      <div class="why-item"><div class="why-icon">👨‍✈️</div><div><h4>Verified Drivers</h4><p>Thorough background checks, training, and regular evaluations.</p></div></div>
+      <div class="why-item"><div class="why-icon">💬</div><div><h4>24/7 Support</h4><p>Always reachable. Any concern, any time — just a call away.</p></div></div>
+    </div>
+    <div class="why-image">🚕<div class="caption">"Over 14 years of safe rides and smiling kids"</div></div>
+  </div>
+</section>
+
+<!-- FLEET -->
+<section class="fleet" id="fleet">
+  <div class="fade-up"><div class="section-tag">Our Vehicles</div><div class="section-title">The Fleet</div><div class="divider"></div></div>
+  <div class="fleet-grid">
+    <div class="fleet-card fade-up"><div class="fleet-img">🚗</div><div class="fleet-info"><div class="fleet-name">Sedan — 4 Seater</div><div class="fleet-desc">Comfortable daily rides. AC, music, clean interiors guaranteed.</div><div class="fleet-tags"><span class="fleet-tag">AC</span><span class="fleet-tag">GPS</span><span class="fleet-tag">4 Kids</span></div></div></div>
+    <div class="fleet-card fade-up"><div class="fleet-img">🚙</div><div class="fleet-info"><div class="fleet-name">SUV — 6 Seater</div><div class="fleet-desc">Spacious SUVs for larger groups with extra luggage space.</div><div class="fleet-tags"><span class="fleet-tag">AC</span><span class="fleet-tag">GPS</span><span class="fleet-tag">6 Kids</span></div></div></div>
+    <div class="fleet-card fade-up"><div class="fleet-img">🚐</div><div class="fleet-info"><div class="fleet-name">Mini Van — 12 Seater</div><div class="fleet-desc">Perfect for school routes covering multiple stops.</div><div class="fleet-tags"><span class="fleet-tag">AC</span><span class="fleet-tag">GPS</span><span class="fleet-tag">12 Kids</span></div></div></div>
+  </div>
+</section>
+
+<!-- ROUTES -->
+<section id="routes">
+  <div class="fade-up"><div class="section-tag">Coverage</div><div class="section-title">Schools & Routes We Cover</div><div class="divider"></div></div>
+  <div class="routes-grid fade-up">
+    <div class="route-card"><div class="route-dot"></div><div><div class="route-name">Delhi Public School</div><div class="route-time">Pickup: 7:00 AM</div></div></div>
+    <div class="route-card"><div class="route-dot"></div><div><div class="route-name">St. Mary's Convent</div><div class="route-time">Pickup: 7:15 AM</div></div></div>
+    <div class="route-card"><div class="route-dot"></div><div><div class="route-name">Ryan International</div><div class="route-time">Pickup: 7:30 AM</div></div></div>
+    <div class="route-card"><div class="route-dot"></div><div><div class="route-name">Bal Bharati School</div><div class="route-time">Pickup: 7:20 AM</div></div></div>
+    <div class="route-card"><div class="route-dot"></div><div><div class="route-name">Kendriya Vidyalaya</div><div class="route-time">Pickup: 7:10 AM</div></div></div>
+    <div class="route-card"><div class="route-dot"></div><div><div class="route-name">Amity International</div><div class="route-time">Pickup: 7:25 AM</div></div></div>
+    <div class="route-card"><div class="route-dot"></div><div><div class="route-name">Modern School</div><div class="route-time">Pickup: 7:05 AM</div></div></div>
+    <div class="route-card"><div class="route-dot"></div><div><div class="route-name">+8 More Schools</div><div class="route-time">Call us to check</div></div></div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="fade-up"><div class="section-tag">What Parents Say</div><div class="section-title">Trusted by Families</div><div class="divider"></div></div>
+  <div class="test-grid">
+    <div class="test-card fade-up"><div class="stars">★★★★★</div><div class="test-quote">"</div><div class="test-text">Rana Cab Service has been a lifesaver. My daughter reaches school on time every day and the driver is so responsible.</div><div class="test-author"><div class="test-avatar">P</div><div><div class="test-name">Priya Sharma</div><div class="test-role">Parent · DPS Faridabad</div></div></div></div>
+    <div class="test-card fade-up"><div class="stars">★★★★★</div><div class="test-quote">"</div><div class="test-text">Been using this service for 3 years. Never missed a single pickup. GPS tracking gives us so much peace of mind.</div><div class="test-author"><div class="test-avatar">R</div><div><div class="test-name">Rajesh Gupta</div><div class="test-role">Parent · Ryan International</div></div></div></div>
+    <div class="test-card fade-up"><div class="stars">★★★★★</div><div class="test-quote">"</div><div class="test-text">Affordable, reliable and always available on call. Highly recommend Rana Cab Service to every parent!</div><div class="test-author"><div class="test-avatar">S</div><div><div class="test-name">Sunita Mehta</div><div class="test-role">Parent · Bal Bharati School</div></div></div></div>
+  </div>
+</section>
+
+<!-- PAYMENT -->
+<section class="payment-section" id="payment">
+  <div class="fade-up"><div class="section-tag">Easy Payments</div><div class="section-title">Pay Us Easily</div><div class="divider"></div><div class="section-sub">Pay monthly fees via Paytm or cash. Simple and hassle-free.</div></div>
+  <div class="payment-inner fade-up">
+    <div class="pay-card"><div class="pay-icon">📱</div><div class="pay-title">Paytm / UPI</div><div class="pay-num">9810578637</div><div class="pay-note">Send monthly fee directly via Paytm UPI.<br>Name: Shivam Rana</div></div>
+    <div class="pay-card"><div class="pay-icon">💵</div><div class="pay-title">Cash Payment</div><div class="pay-num" style="font-size:16px;letter-spacing:0">Pay to Driver</div><div class="pay-note">Hand cash directly to your assigned driver<br>at the start of each month.</div></div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-section" id="contact">
+  <div class="fade-up"><div class="section-tag">Get In Touch</div><div class="section-title">Contact Us</div><div class="divider"></div></div>
+  <div class="contact-grid fade-up">
+    <div class="contact-info">
+      <div class="contact-item"><div class="contact-icon">📞</div><div><h4>Call Us</h4><p><a href="tel:9810578637">9810578637</a><br><a href="tel:9910608637">9910608637</a></p></div></div>
+      <div class="contact-item"><div class="contact-icon">💬</div><div><h4>WhatsApp</h4><p><a href="https://wa.me/919810578637" target="_blank">Chat on WhatsApp →</a><br>Available 6 AM – 9 PM</p></div></div>
+      <div class="contact-item"><div class="contact-icon">✉️</div><div><h4>Email</h4><p><a href="mailto:shivamrana7811@gmail.com">shivamrana7811@gmail.com</a></p></div></div>
+      <div class="contact-item"><div class="contact-icon">📍</div><div><h4>Location</h4><p>Faridabad, Haryana, India</p></div></div>
+      <div class="contact-item"><div class="contact-icon">🕐</div><div><h4>Working Hours</h4><p>Mon – Sat: 6:00 AM – 8:00 PM<br>Sunday: Emergency only</p></div></div>
+    </div>
+    <div class="book-cta-box">
+      <div style="font-size:56px;margin-bottom:16px">🚕</div>
+      <h3>Ready to Book?</h3>
+      <p>Click below to fill in your child's details and we'll get back to you within the hour!</p>
+      <button class="btn-primary" style="margin:0 auto;justify-content:center" onclick="openDialog()">📋 Book Now — It's Free!</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">🚕 Rana Cab Service</div>
+  <div class="footer-links"><a href="#services">Services</a><a href="#fleet">Fleet</a><a href="#routes">Routes</a><a href="#payment">Payment</a><a href="#contact">Contact</a></div>
+  <div class="footer-copy">© 2024 Rana Cab Service · Faridabad, Haryana</div>
+</footer>
+
+<script>
+function openDialog(){
+  document.getElementById('dialogOverlay').classList.add('open');
+  document.body.style.overflow='hidden';
+  document.getElementById('dialogForm').style.display='block';
+  document.getElementById('successBox').style.display='none';
+}
+function closeDialog(){
+  document.getElementById('dialogOverlay').classList.remove('open');
+  document.body.style.overflow='';
+}
+document.getElementById('dialogOverlay').addEventListener('click',function(e){
+  if(e.target===this) closeDialog();
+});
+
+async function submitBooking(){
+  const fields={
+    child_name: document.getElementById('childName'),
+    child_class: document.getElementById('childClass'),
+    father_name: document.getElementById('fatherName'),
+    mother_name: document.getElementById('motherName'),
+    school_name: document.getElementById('schoolName'),
+    teacher_name: document.getElementById('teacherName'),
+    mobile: document.getElementById('mobileNum'),
+    pickup_address: document.getElementById('pickupAddr'),
+    vehicle_type: document.getElementById('vehicleType')
+  };
+
+  // Validate
+  for(let [key,el] of Object.entries(fields)){
+    if(!el.value.trim()){
+      el.style.borderColor='rgba(255,100,100,.6)';
+      el.focus();
+      return;
+    } else el.style.borderColor='';
+  }
+
+  const btn = document.getElementById('submitBtn');
+  btn.disabled = true;
+  btn.textContent = 'Sending... ⏳';
+
+  // Build form data
+  const formData = new FormData();
+  for(let [key,el] of Object.entries(fields)){
+    formData.append(key, el.value);
+  }
+
+  try {
+    const res = await fetch('https://formspree.io/f/xnjojyqv', {
+      method: 'POST',
+      body: formData,
+      headers: { 'Accept': 'application/json' }
+    });
+
+    if(res.ok){
+      document.getElementById('confirmMobile').textContent = fields.mobile.value;
+      document.getElementById('dialogForm').style.display='none';
+      document.getElementById('successBox').style.display='block';
+    } else {
+      btn.disabled=false;
+      btn.textContent='Confirm Booking 🚕';
+      alert('Something went wrong. Please call us directly at 9810578637');
+    }
+  } catch(e){
+    btn.disabled=false;
+    btn.textContent='Confirm Booking 🚕';
+    alert('Network error. Please call us at 9810578637');
+  }
+}
+
+// Scroll animations
+const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible')}),{threshold:0.08});
+document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
